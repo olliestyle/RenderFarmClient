@@ -1,5 +1,7 @@
 package ru.baib.action;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ru.baib.input.Input;
 import ru.baib.model.ApplicationState;
 import ru.baib.model.ClientMessage;
@@ -12,6 +14,7 @@ import java.net.Socket;
 public class LoginAction implements Action {
 
     private Socket socket;
+    private static final Logger LOG = LogManager.getLogger(LoginAction.class.getName());
 
     public LoginAction(Socket socket) {
         this.socket = socket;
@@ -44,7 +47,7 @@ public class LoginAction implements Action {
             clientMessage.getApplicationState().setCurrentUser(resp.getUser());
             System.out.println(resp.getStatus());
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
     }
 }

@@ -1,5 +1,7 @@
 package ru.baib.action;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ru.baib.input.Input;
 import ru.baib.model.*;
 
@@ -9,6 +11,7 @@ import java.net.Socket;
 public class RegisterAction implements Action {
 
     private Socket socket;
+    private static final Logger LOG = LogManager.getLogger(RegisterAction.class.getName());
 
     public RegisterAction(Socket socket) {
         this.socket = socket;
@@ -40,7 +43,7 @@ public class RegisterAction implements Action {
             ServerResponse resp = (ServerResponse) new ObjectInputStream(socket.getInputStream()).readObject();
             System.out.println(resp.getStatus());
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
     }
 

@@ -1,10 +1,14 @@
 package ru.baib.input;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import java.util.Scanner;
 
 public class ConsoleInput implements Input {
 
     private Scanner scanner = new Scanner(System.in);
+    private static final Logger LOG = LogManager.getLogger(ConsoleInput.class.getName());
 
     @Override
     public String askStr(String question) {
@@ -30,7 +34,7 @@ public class ConsoleInput implements Input {
                     System.out.println("Please select key from menu");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Please enter valid data");
+                LOG.error(e);
             }
         } while (invalid);
         return select;
